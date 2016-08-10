@@ -12,12 +12,12 @@ class ModninfobipGrailsPlugin extends Plugin {
     ]
 
     // TODO Fill in these fields
-    def title = "Modninfobip" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def title = "Grails Infobip" // Headline display name of the plugin
+    def author = "Osaetin Evbuoma"
+    def authorEmail = "osaetinevbuoma@gmail.com"
     def description = '''\
-Brief summary/description of the plugin.
-'''
+    Grails plugin for Infobip.
+    '''
     def profiles = ['web']
 
     // URL to the plugin's documentation
@@ -29,7 +29,7 @@ Brief summary/description of the plugin.
 //    def license = "APACHE"
 
     // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def organization = [ name: "MOD'N Solutions", url: "http://www.modnsolutions.com/" ]
 
     // Any additional developers beyond the author specified above.
 //    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]

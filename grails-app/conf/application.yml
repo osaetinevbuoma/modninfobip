@@ -76,3 +76,7 @@ grails:
 endpoints:
     jmx:
         unique-names: true
+
+---
+infobip:
+    host: https://api.infobip.com
