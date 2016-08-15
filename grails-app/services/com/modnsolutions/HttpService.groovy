@@ -12,6 +12,13 @@ class HttpService {
     private final String CHARSET = "UTF-8"
     private final String CONTENTTYPE = "application/json"
 
+    /**
+     * Send HTTP post request to URL
+     * @param address
+     * @param authorization
+     * @param bodyParameters
+     * @return
+     */
     JSONObject post(String address, String authorization, String bodyParameters) {
         StringBuffer returnedBuffer
         JSONObject returnedObj = null
@@ -63,6 +70,12 @@ class HttpService {
         return returnedObj
     }
 
+    /**
+     * Send HTTP get request to URL
+     * @param address
+     * @param authorization
+     * @return
+     */
     JSONObject get(String address, String authorization) {
         StringBuffer returnedBuffer
         JSONObject returnedObj = null
