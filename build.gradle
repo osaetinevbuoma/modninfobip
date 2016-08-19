@@ -61,17 +61,24 @@ dependencies {
     compile files("libs/RESTHttpService-1.1.jar")
 }
 grailsPublish {
-    user = 'user'
-    key = 'key'
-    githubSlug = 'foo/bar'
+    user = project.hasProperty("user") ? project.property("user") : System.getenv("BINTRAY_USER")
+    key = project.hasProperty("key") ? project.property("key") : System.getenv("BINTRAY_API_KEY")
+    githubSlug = "https://github.com/osaetinevbuoma/modninfobip.git"
+    vcsUrl = "https://github.com/osaetinevbuoma/modninfobip.git"
+    userOrg = "modnsolutions"
+    repo = "messaging"
     license {
         name = 'Apache-2.0'
     }
     title = "Infobip SMS Grails plugin"
     desc = "Infobip SMS Grails plugin"
     developers = [osaetinevbuoma:"Osaetin Evbuoma"]
-    portalUser = ""
-    portalPassword = ""    
+    version {
+        name = "0.1"
+        desc = "Infobip SMS Grails plugin"
+    }
+    /*portalUser = ""
+    portalPassword = ""   */
 }
 
 assets {
