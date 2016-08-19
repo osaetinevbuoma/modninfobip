@@ -58,18 +58,18 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+    compile files("libs/RESTHttpService-1.1.jar")
 }
 grailsPublish {
-    // TODO: Provide values here
     user = 'user'
     key = 'key'
     githubSlug = 'foo/bar'
     license {
         name = 'Apache-2.0'
     }
-    title = "My Plugin"
-    desc = "Full plugin description"
-    developers = [johndoe:"John Doe"]
+    title = "Infobip SMS Grails plugin"
+    desc = "Infobip SMS Grails plugin"
+    developers = [osaetinevbuoma:"Osaetin Evbuoma"]
     portalUser = ""
     portalPassword = ""    
 }
