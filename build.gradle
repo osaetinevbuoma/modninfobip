@@ -13,7 +13,7 @@ buildscript {
 }
 
 version "0.1"
-group "modninfobip"
+group "com.modnsolutions"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -49,6 +49,7 @@ dependencies {
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
+    compile "com.modnsolutions:RESTHttpService:0.1"
     console "org.grails:grails-console"
     profile "org.grails.profiles:web-plugin"
     provided "org.grails:grails-plugin-services"
@@ -58,25 +59,20 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-    compile files("libs/RESTHttpService-1.1.jar")
 }
 grailsPublish {
     user = project.hasProperty("user") ? project.property("user") : System.getenv("BINTRAY_USER")
-    key = project.hasProperty("key") ? project.property("key") : System.getenv("BINTRAY_API_KEY")
-    githubSlug = "https://github.com/osaetinevbuoma/modninfobip.git"
-    vcsUrl = "https://github.com/osaetinevbuoma/modninfobip.git"
+    key = project.hasProperty("key") ? project.property("key") : System.getenv("BINTRAY_KEY")
+    githubSlug = "osaetinevbuoma/modninfobip"
+    vcsUrl = "https://github.com/osaetinevbuoma/modninfobip"
     userOrg = "modnsolutions"
-    repo = "messaging"
+    repo = "grails-plugins"
     license {
         name = 'Apache-2.0'
     }
     title = "Infobip SMS Grails plugin"
     desc = "Infobip SMS Grails plugin"
     developers = [osaetinevbuoma:"Osaetin Evbuoma"]
-    version {
-        name = "0.1"
-        desc = "Infobip SMS Grails plugin"
-    }
     /*portalUser = ""
     portalPassword = ""   */
 }
