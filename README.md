@@ -112,7 +112,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.modnsolutions:modninfobip:1.0"
+    compile "com.modnsolutions:modninfobip:1.0.1"
 }
 ```
 
