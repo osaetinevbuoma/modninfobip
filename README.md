@@ -9,7 +9,6 @@ Grails plugin for Infobip SMS API
 ### Generate basic authorization ###
 
 ```
-
 String basicAuthorization(String username, String password)
 ```
 * username - infobip username
@@ -20,7 +19,6 @@ String basicAuthorization(String username, String password)
 ### Send an SMS to a single phone number ###
 
 ```
-
 JSONObject sendSingleMessage(String authorization, String from, String to, String text)
 ```
 * from - Sender phone number registered on infobip (Phone numbers are usually prefixed with *+ (plus sign)*, followed by a *country code*, *network code* and the *subscriber number*)
@@ -30,7 +28,6 @@ JSONObject sendSingleMessage(String authorization, String from, String to, Strin
 ### Send an SMS to multiple phone numbers ###
 
 ```
-
 JSONObject sendSingleMessage(String authorization, String from, List to, String text)
 ```
 * to - A list of string types of recipients' phone numbers
@@ -38,13 +35,11 @@ JSONObject sendSingleMessage(String authorization, String from, List to, String 
 ### Send multiple SMS's to multiple or same recipient phone number ###
 
 ```
-
 JSONObject sendMultipleMessages(String authorization, JSONObject data)
 ```
 * data - A json object of data. An example is show below.
 
 ```
-
 {  
    "messages":[  
       {  
@@ -67,14 +62,12 @@ JSONObject sendMultipleMessages(String authorization, JSONObject data)
 ### Get delivery reports ###
 
 ```
-
 JSONObject deliveryReport(String authorization)
 ```
 
 ### Get filtered delivery reports ###
 
 ```
-
 JSONObject deliveryReport(String authorization, Map filters)
 ```
 * filters - A filter map. View [here](https://dev.infobip.com/docs/delivery-reports) for more filter information.
@@ -84,22 +77,34 @@ JSONObject deliveryReport(String authorization, Map filters)
 ### Get logs ###
 
 ```
-
 JSONObject messageLog(String authorization)
 ```
 
 ### Get filtered logs ###
 
 ```
-
 JSONObject messageLog(String authorization, Map filters)
 ```
 * filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information.
 
 ## Installation ##
+Edit application.groovy (or application.yml if you prefer) and build.gradle
 
+* application.groovy
+```
+infobip.host = "https://api.infobip.com"
 ```
 
+**OR**
+
+* application.yml
+```
+infobip:
+    host: https://api.infobip.com
+```
+
+* build.gradle
+```
 repositories {
     maven {
         url  "http://dl.bintray.com/modnsolutions/grails-plugins" 
@@ -115,14 +120,12 @@ dependencies {
 * Import the required service classes into you Grails Service or Controller class.
 
 ```
-
 import com.modnsolutions.AuthorizationService
 import com.modnsolutions.SendMessageService
 ```
 * Inject AuthorizationService and SendMessageService classes into your Grails Service or Controller class.
 
 ```
-
 AuthorizationService authorizationService
 SendMessageService sendMessageService
 ```
@@ -130,8 +133,30 @@ SendMessageService sendMessageService
 * In your class method, generate your basic authorization code and send your messages
 
 ```
-
 String basicAuthorization = authorizationService.basicAuthorization("INFOBIP_USERNAME", "INFOBIP_PASSWORD")
 JSONObject singleMessageResponse = sendMessageService.sendSingleMessage(basicAuthorization, from, to, text)
 println singleMessageResponse
+```
+
+### Example ###
+```
+import com.modnsolutions.AuthorizationService
+import com.modnsolutions.SendMessageService
+import org.grails.web.json.JSONArray
+
+class SMSController {
+    AuthorizationService authorizationService
+    SendMessageService sendMessageService
+    
+    def sendSingleSMS(String from, String to, String text) {
+        String basicAuthorization = authorizationService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
+        JSONObject singleMessageResponse = sendMessageService.sendSingleMessage(basicAuthorization, from, to, text)
+        println singleMessageResponse
+
+        flash.message = singleMessageResponse
+        render view: "/index.gsp"
+    }
+    
+    ...
+}
 ```
