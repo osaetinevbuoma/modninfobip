@@ -79,4 +79,4 @@ endpoints:
 
 ---
 infobip:
-    host: https://api.infobip.com
+    host: https://api.infobip.com/sms/1

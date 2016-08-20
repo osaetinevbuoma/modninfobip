@@ -88,11 +88,11 @@ JSONObject messageLog(String authorization, Map filters)
 * filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information.
 
 ## Installation ##
-Edit application.groovy (or application.yml if you prefer) and build.gradle
+Edit `application.groovy` (or `application.yml` if you prefer) and `build.gradle`
 
 * application.groovy
 ```
-infobip.host = "https://api.infobip.com"
+infobip.host = "https://api.infobip.com/sms/1"
 ```
 
 **OR**
@@ -100,19 +100,19 @@ infobip.host = "https://api.infobip.com"
 * application.yml
 ```
 infobip:
-    host: https://api.infobip.com
+    host: https://api.infobip.com/sms/1
 ```
 
 * build.gradle
 ```
 repositories {
     maven {
-        url  "http://dl.bintray.com/modnsolutions/grails-plugins" 
+        url  "http://dl.bintray.com/modnsolutions/plugins-libraries" 
     }
 }
 
 dependencies {
-    compile 'com.modnsolutions:modninfobip:0.1'
+    compile "com.modnsolutions:modninfobip:1.0"
 }
 ```
 

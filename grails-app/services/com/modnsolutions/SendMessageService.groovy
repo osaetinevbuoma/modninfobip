@@ -21,7 +21,7 @@ class SendMessageService {
      * @return
      */
     JSONObject sendSingleMessage(String authorization, String from, String to, String text) {
-        String address = grailsApplication.config.infobip.host + "/sms/1/text/single"
+        String address = grailsApplication.config.infobip.host + "/text/single"
         JSONObject messageObj = new JSONObject([from: from, to: to, text: text])
         httpService.post(address, authorization, messageObj.toString())
     }
@@ -36,7 +36,7 @@ class SendMessageService {
      * @return
      */
     JSONObject sendSingleMessage(String authorization, String from, List to, String text) {
-        String address = grailsApplication.config.infobip.host + "/sms/1/text/single"
+        String address = grailsApplication.config.infobip.host + "/text/single"
 
         JSONArray toArr = new JSONArray()
         to.each {
@@ -55,7 +55,7 @@ class SendMessageService {
      * @return
      */
     JSONObject sendMultipleMessages(String authorization, JSONObject data) {
-        String address = grailsApplication.config.infobip.host + "/sms/1/text/multi"
+        String address = grailsApplication.config.infobip.host + "/text/multi"
         httpService.post(address, authorization, data.toString())
     }
 
@@ -66,7 +66,7 @@ class SendMessageService {
      * @return
      */
     JSONObject deliveryReport(String authorization) {
-        String address = grailsApplication.config.infobip.host + "/sms/1/reports"
+        String address = grailsApplication.config.infobip.host + "/reports"
         httpService.get(address, authorization)
     }
 
@@ -82,7 +82,7 @@ class SendMessageService {
         filters.each { key, value ->
             params += "$key=$value&"
         }
-        String address = grailsApplication.config.infobip.host + "/sms/1/reports?$params"
+        String address = grailsApplication.config.infobip.host + "/reports?$params"
         httpService.get(address, authorization)
     }
 
@@ -93,7 +93,7 @@ class SendMessageService {
      * @return
      */
     JSONObject messageLog(String authorization) {
-        String address = grailsApplication.config.infobip.host + "/sms/1/logs"
+        String address = grailsApplication.config.infobip.host + "/logs"
         httpService.get(address, authorization)
     }
 
@@ -109,7 +109,7 @@ class SendMessageService {
         filters.each { key, value ->
             params += "$key=$value&"
         }
-        String address = grailsApplication.config.infobip.host + "/sms/1/logs?$params"
+        String address = grailsApplication.config.infobip.host + "/logs?$params"
         httpService.get(address, authorization)
     }
 }
