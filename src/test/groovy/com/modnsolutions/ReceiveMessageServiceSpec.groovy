@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(AuthorizationService)
-class AuthorizationServiceSpec extends Specification {
+@TestFor(ReceiveMessageService)
+class ReceiveMessageServiceSpec extends Specification {
 
     def setup() {
     }
@@ -17,6 +17,6 @@ class AuthorizationServiceSpec extends Specification {
 
     void "test something"() {
         expect:"fix me"
-            true == true
+            true == false
     }
 }

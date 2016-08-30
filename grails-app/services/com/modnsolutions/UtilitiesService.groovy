@@ -1,15 +1,34 @@
 package com.modnsolutions
 
+import grails.core.GrailsApplication
 import grails.transaction.Transactional
 import org.grails.web.json.JSONObject
 
-import com.modnsolutions.JsonHttpService
-
 @Transactional
-class HttpService {
-    private final String USER_AGENT = "Mozilla/5.0"
-    private final String CHARSET = "UTF-8"
-    private final String CONTENTTYPE = "application/json"
+class UtilitiesService {
+
+    GrailsApplication grailsApplication
+
+    /**
+     * Generates an encoded string using the RFC2045-MIME variant of Base64
+     *
+     * @param username  The client's infobip username
+     * @param password  The client's infobip password
+     * @return  String Base64 encoded string
+     */
+    String basicAuthorization(String username, String password) {
+        String userPass = "$username:$password"
+        String base64Encoded = Base64.getEncoder().encodeToString(userPass.getBytes("utf-8"))
+        return "Basic $base64Encoded"
+    }
+
+    /**
+     * Get infobip host url
+     * @return String : host url
+     */
+    String getInfobipHost() {
+        grailsApplication.config.infobip.host
+    }
 
     /**
      * Send HTTP post request to URL

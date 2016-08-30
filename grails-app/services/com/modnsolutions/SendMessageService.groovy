@@ -1,6 +1,5 @@
 package com.modnsolutions
 
-import grails.core.GrailsApplication
 import grails.transaction.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
@@ -8,8 +7,7 @@ import org.grails.web.json.JSONObject
 @Transactional
 class SendMessageService {
 
-    GrailsApplication grailsApplication
-    HttpService httpService
+    UtilitiesService utilitiesService
 
     /**
      * Send a single message to a number from a verified Infobip number
@@ -21,9 +19,9 @@ class SendMessageService {
      * @return
      */
     JSONObject sendSingleMessage(String authorization, String from, String to, String text) {
-        String address = grailsApplication.config.infobip.host + "/text/single"
+        String address = utilitiesService.getInfobipHost() + "/text/single"
         JSONObject messageObj = new JSONObject([from: from, to: to, text: text])
-        httpService.post(address, authorization, messageObj.toString())
+        utilitiesService.post(address, authorization, messageObj.toString())
     }
 
     /**
@@ -36,7 +34,7 @@ class SendMessageService {
      * @return
      */
     JSONObject sendSingleMessage(String authorization, String from, List to, String text) {
-        String address = grailsApplication.config.infobip.host + "/text/single"
+        String address = utilitiesService.getInfobipHost() + "/text/single"
 
         JSONArray toArr = new JSONArray()
         to.each {
@@ -44,7 +42,7 @@ class SendMessageService {
         }
 
         JSONObject messageObj = new JSONObject([from: from, to: toArr, text: text])
-        httpService.post(address, authorization, messageObj.toString())
+        utilitiesService.post(address, authorization, messageObj.toString())
     }
 
     /**
@@ -55,8 +53,8 @@ class SendMessageService {
      * @return
      */
     JSONObject sendMultipleMessages(String authorization, JSONObject data) {
-        String address = grailsApplication.config.infobip.host + "/text/multi"
-        httpService.post(address, authorization, data.toString())
+        String address = utilitiesService.getInfobipHost() + "/text/multi"
+        utilitiesService.post(address, authorization, data.toString())
     }
 
     /**
@@ -66,12 +64,19 @@ class SendMessageService {
      * @return
      */
     JSONObject deliveryReport(String authorization) {
-        String address = grailsApplication.config.infobip.host + "/reports"
-        httpService.get(address, authorization)
+        String address = utilitiesService.getInfobipHost() + "/reports"
+        utilitiesService.get(address, authorization)
     }
 
     /**
      * Get delivery report for message sent but filtered
+     * Filter parameters are any of the following:
+     * <ul>
+     *     <li>bulkId - string - The ID that uniquely identifies the request. Bulk ID will be
+     *     received only when you send a message to more than one destination address.</li>
+     *     <li>messageId - string - The ID that uniquely identifies the message sent.</li>
+     *     <li>limit - string - The maximum number of returned delivery reports. Default value is 50.</li>
+     * </ul>
      *
      * @param authorization Authorization code
      * @param filters       Map of filters to filter results
@@ -82,8 +87,8 @@ class SendMessageService {
         filters.each { key, value ->
             params += "$key=$value&"
         }
-        String address = grailsApplication.config.infobip.host + "/reports?$params"
-        httpService.get(address, authorization)
+        String address = utilitiesService.getInfobipHost() + "/reports?$params"
+        utilitiesService.get(address, authorization)
     }
 
     /**
@@ -93,12 +98,29 @@ class SendMessageService {
      * @return
      */
     JSONObject messageLog(String authorization) {
-        String address = grailsApplication.config.infobip.host + "/logs"
-        httpService.get(address, authorization)
+        String address = utilitiesService.getInfobipHost() + "/logs"
+        utilitiesService.get(address, authorization)
     }
 
     /**
      * Get message logs for the last 48 hours but filtered
+     * Filter parameters are any of the following:
+     * <ul>
+     *     <li>from - string - Sender ID that can be alphanumeric or numeric.</li>
+     *     <li>to - string - The message destination address.</li>
+     *     <li>bulkId - string - The ID that uniquely identifies the request. Bulk ID will be
+     *     received only when you send a message to more than one destination address.</li>
+     *     <li>messageId - string - The ID that uniquely identifies the message sent.</li>
+     *     <li>generalStatus - string - Sent SMS status group.Indicates whether the message is
+     *     successfully sent, not sent, delivered, not delivered, waiting for delivery or any
+     *     other possible status.</li>
+     *     <li>sentSince - datetime - Lower limit on date and time of sending SMS.</li>
+     *     <li>sentUntil - datetime - Upper limit on date and time of sending SMS.</li>
+     *     <li>limit - integer - Maximal number of messages in returned logs. Default value is
+     *     50.</li>
+     *     <li>mcc - string - Mobile country code.</li>
+     *     <li>mnc - string Mobile network code.</li>
+     * </ul>
      *
      * @param authorization Authorization code
      * @param filters       Map of filters to filter results
@@ -109,7 +131,7 @@ class SendMessageService {
         filters.each { key, value ->
             params += "$key=$value&"
         }
-        String address = grailsApplication.config.infobip.host + "/logs?$params"
-        httpService.get(address, authorization)
+        String address = utilitiesService.getInfobipHost() + "/logs?$params"
+        utilitiesService.get(address, authorization)
     }
 }

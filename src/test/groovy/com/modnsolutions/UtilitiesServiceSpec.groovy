@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(HttpService)
-class HttpServiceSpec extends Specification {
+@TestFor(UtilitiesService)
+class UtilitiesServiceSpec extends Specification {
 
     def setup() {
     }
@@ -17,6 +17,6 @@ class HttpServiceSpec extends Specification {
 
     void "test something"() {
         expect:"fix me"
-            true == true
+            true == false
     }
 }

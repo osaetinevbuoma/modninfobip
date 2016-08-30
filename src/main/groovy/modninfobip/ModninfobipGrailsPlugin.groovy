@@ -11,7 +11,6 @@ class ModninfobipGrailsPlugin extends Plugin {
         "grails-app/views/error.gsp"
     ]
 
-    // TODO Fill in these fields
     def title = "Grails Infobip" // Headline display name of the plugin
     def author = "Osaetin Evbuoma"
     def authorEmail = "osaetinevbuoma@gmail.com"

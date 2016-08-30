@@ -74,6 +74,14 @@ JSONObject deliveryReport(String authorization, Map filters)
 
 **NB**: Delivery reports can only be gotten once. A second call returns an empty result.
 
+### Pull received messages to phone number from Infobip server ###
+
+```
+JSONObject pullReceivedMessages(String authorization)
+JSONObject pullReceivedMessages(String authorization, int limit)
+```
+* limit - The number of messages to pull from server. Default is 50 and maximum is 10000
+
 ### Get logs ###
 
 ```
@@ -85,7 +93,8 @@ JSONObject messageLog(String authorization)
 ```
 JSONObject messageLog(String authorization, Map filters)
 ```
-* filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information.
+* filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information for sent messages and
+    [here](https://dev.infobip.com/docs/received-messages-logs) for filter information for received messages.
 
 ## Installation ##
 Edit `application.groovy` (or `application.yml` if you prefer) and `build.gradle`
@@ -120,41 +129,49 @@ dependencies {
 * Import the required service classes into you Grails Service or Controller class.
 
 ```
-import com.modnsolutions.AuthorizationService
-import com.modnsolutions.SendMessageService
+import com.modnsolutions.ReceiveMessageService //service to pull received messages from infobip server
+import com.modnsolutions.SendMessageService // service to send messages via infobip
+import com.modnsolutions.UtilitiesService
 ```
 * Inject AuthorizationService and SendMessageService classes into your Grails Service or Controller class.
 
 ```
-AuthorizationService authorizationService
+ReceiveMessageService receiveMessageService
 SendMessageService sendMessageService
+UtilitiesService utilitiesService
 ```
 
 * In your class method, generate your basic authorization code and send your messages
 
 ```
-String basicAuthorization = authorizationService.basicAuthorization("INFOBIP_USERNAME", "INFOBIP_PASSWORD")
+String basicAuthorization = utilitiesService.basicAuthorization("INFOBIP_USERNAME", "INFOBIP_PASSWORD")
 JSONObject singleMessageResponse = sendMessageService.sendSingleMessage(basicAuthorization, from, to, text)
 println singleMessageResponse
 ```
 
 ### Example ###
 ```
-import com.modnsolutions.AuthorizationService
+import com.modnsolutions.ReceiveMessageService
 import com.modnsolutions.SendMessageService
-import org.grails.web.json.JSONArray
+import com.modnsolutions.UtilitiesService
+
+// In Grails you can handle json objects and arrays by importing and using
+// import org.grails.web.json.JSONArray
+// import org.grails.web.json.JSONObject
 
 class SMSController {
-    AuthorizationService authorizationService
+    ReceiveMessageService receiveMessageService
     SendMessageService sendMessageService
+    UtilitiesService utilitiesService
     
     def sendSingleSMS(String from, String to, String text) {
-        String basicAuthorization = authorizationService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
-        JSONObject singleMessageResponse = sendMessageService.sendSingleMessage(basicAuthorization, from, to, text)
-        println singleMessageResponse
-
-        flash.message = singleMessageResponse
-        render view: "/index.gsp"
+        String basicAuthorization = utilitiesService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
+        render sendMessageService.sendSingleMessage(basicAuthorization, from, to, text)
+    }
+    
+    def pullMessages() {
+        String basicAuthorization = utilitiesService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
+        render receiveMessageService.pullReceivedMessages(basicAuthorization)
     }
     
     ...
