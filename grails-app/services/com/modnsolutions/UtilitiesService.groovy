@@ -23,6 +23,17 @@ class UtilitiesService {
     }
 
     /**
+     * Check account balance
+     *
+     * @param basicAuthorization    Basic authorization
+     * @return
+     */
+    JSONObject checkAccountBalance(String authorization) {
+        String address = "https://api.infobip.com/account/1/balance"
+        get(address, authorization)
+    }
+
+    /**
      * Get infobip host url
      * @return String : host url
      */

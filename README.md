@@ -99,6 +99,12 @@ JSONObject messageLog(String authorization, Map filters)
 ```
 * filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information for sent messages and
     [here](https://dev.infobip.com/docs/received-messages-logs) for filter information for received messages.
+    
+### Check Account Balance ###
+
+```
+JSONObject checkAccountBalance(String authorization)
+```
 
 ## Installation ##
 Edit `application.groovy` (or `application.yml` if you prefer) and `build.gradle`
@@ -176,6 +182,11 @@ class SMSController {
     def pullMessages() {
         String basicAuthorization = utilitiesService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
         render receiveMessageService.pullReceivedMessages(basicAuthorization)
+    }
+    
+    def checkAccountBalance() {
+        String basicAuthorization = utilitiesService.basicAuthorization("INFOBIP_USERNAME", "INFORBIP_PASSWORD")
+        render utilitiesService.checkAccountBalance(basicAuthorization)
     }
     
     ...
