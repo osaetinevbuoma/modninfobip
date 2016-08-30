@@ -85,6 +85,8 @@ JSONObject pullReceivedMessages(String authorization, int limit)
 ### Get logs ###
 
 ```
+// Call the messageLog method corresponding service 
+// class (SendMessageService or ReceiveMessageService)
 JSONObject messageLog(String authorization)
 ```
 
@@ -121,7 +123,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.modnsolutions:modninfobip:1.0.1"
+    compile "com.modnsolutions:modninfobip:1.0.2"
 }
 ```
 
@@ -129,8 +131,8 @@ dependencies {
 * Import the required service classes into you Grails Service or Controller class.
 
 ```
-import com.modnsolutions.ReceiveMessageService //service to pull received messages from infobip server
-import com.modnsolutions.SendMessageService // service to send messages via infobip
+import com.modnsolutions.ReceiveMessageService //service to pull received messages and message log from infobip server
+import com.modnsolutions.SendMessageService // service to send messages via infobip, get delivery report and message logs
 import com.modnsolutions.UtilitiesService
 ```
 * Inject AuthorizationService and SendMessageService classes into your Grails Service or Controller class.
