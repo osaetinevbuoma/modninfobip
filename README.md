@@ -85,7 +85,7 @@ JSONObject pullReceivedMessages(String authorization, int limit)
 ### Get logs ###
 
 ```
-// Call the messageLog method corresponding service 
+// Call the messageLog method of corresponding service 
 // class (SendMessageService or ReceiveMessageService)
 JSONObject messageLog(String authorization)
 ```
@@ -93,6 +93,8 @@ JSONObject messageLog(String authorization)
 ### Get filtered logs ###
 
 ```
+// Call the messageLog method of corresponding service 
+// class (SendMessageService or ReceiveMessageService)
 JSONObject messageLog(String authorization, Map filters)
 ```
 * filters - A filter map. View [here](https://dev.infobip.com/docs/message-logs) for filter information for sent messages and
