@@ -131,7 +131,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.modnsolutions:modninfobip:1.0.2"
+    compile "org.grails.plugins:modninfobip:1.0.2"
 }
 ```
 
