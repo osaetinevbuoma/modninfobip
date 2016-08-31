@@ -1,4 +1,4 @@
-# Infobip plugin #
+# Infobip plugin [![Build Status](https://travis-ci.org/osaetinevbuoma/modninfobip.svg?branch=master)](https://travis-ci.org/osaetinevbuoma/modninfobip) #
 Grails plugin for Infobip SMS API
 
 ## Prerequisite to using **modninfobip** plugin ##
